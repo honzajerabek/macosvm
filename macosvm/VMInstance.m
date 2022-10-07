@@ -359,6 +359,11 @@ void add_unlink_on_exit(const char *fn); /* from main.m - a bit hacky but more s
     if (networks) for (NSDictionary *d in networks) {
             VZVirtioNetworkDeviceConfiguration *networkDevice = [[VZVirtioNetworkDeviceConfiguration alloc] init];
             NSString *type = d[@"type"];
+            NSString *macAddress = d[@"macAddress"];
+            if (macAddress) {
+                NSLog(@" + Mac Address %@", macAddress);
+                networkDevice.MACAddress = [[VZMACAddress alloc] initWithString: macAddress];
+            }
             if (type && [type isEqualToString:@"nat"]) {
                 NSLog(@" + NAT network");
                 networkDevice.attachment = [[VZNATNetworkDeviceAttachment alloc] init];
